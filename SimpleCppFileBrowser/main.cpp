@@ -57,6 +57,15 @@ void recursiveLoad(Directory* root, Directory* parent, std::string rootPath)
 	std::string command = "dir /b \"" + rootPath + "\"";
 	const char* final_command = command.c_str();
 	std::string result = exec(final_command);
+
+	if (result.compare("") == 0)
+	{
+		std::cout << "Directory not found" << std::endl;
+		std::cin.get();
+		exit(0);
+		return;
+	}
+
 	std::vector<std::string> resultSplit = split(result, '\n');
 
 	int directoriesCount = 0;
@@ -116,7 +125,7 @@ int main()
 
 	std::string command;
 	do {
-		std::cout << "\n\nYou are inside " + currentDirectory->GetPath() << std::endl;
+		std::cout << "\n\nYou are inside " + currentDirectory->GetPath() << std::endl << "Commands: dir, cd name, cd.., open name, search name, exit" << std::endl;
 		std::cin >> command;
 
 		if (command.compare("cd") == 0)
